@@ -1,0 +1,35 @@
+.FightRow-container{
+    display: flex;
+    width: 80%;
+    margin: auto;
+    column-gap: 50px;
+    background-color: #1a1818;
+    color: white;
+    padding: 25px;
+}
+
+.FightRow-fighter-image{
+    height: 500px;
+}
+
+.FightRow-statistics{
+    width: 100%;
+    color: white;
+}
+
+.FightRow-statistics > ul{
+    list-style: none;
+    padding: 0;
+}
+
+.FightRow-statistics > ul > li{
+    display: flex;
+    justify-content: space-between;
+    height: 100px;
+    align-items: center;
+    background-color: black;
+}
+
+.FightRow-statistics > ul > li > span{
+    font-size: 30px;
+}
