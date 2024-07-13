@@ -103,3 +103,34 @@ def calculate_past3_new_fight(fighter1, fighter2, df):
         'fighter1_past3': fighter1_wins - fighter1_losses,
         'fighter2_past3': fighter2_wins - fighter2_losses
     })
+
+def get_model_dataframe(filepath):
+    data = pd.read_csv(filepath)
+    # Preprocess the data
+    data['date'] = pd.to_datetime(data['date'])
+    #data = data[data['fight_format'] == 3]
+
+    #sort the df by date
+    data.sort_values(by=['date'], ascending=False, inplace=True)
+    data = data.reset_index(drop=True)
+
+    #map fighter names to an integer id
+    fighter_names = pd.concat([data['fighter1'], data['fighter2']])
+
+    # # Create a mapping of unique fighter names to unique identifiers
+    unique_fighters = fighter_names.unique()
+    fighter_id_map = {fighter: idx for idx, fighter in enumerate(unique_fighters)}
+
+    # Map fighter names in 'fighter1' and 'fighter2' columns to their respective identifiers
+    data['fighter1_id'] = data['fighter1'].map(fighter_id_map)
+    data['fighter2_id'] = data['fighter2'].map(fighter_id_map)
+
+    # # Display the mapping of fighter names to their corresponding identifiers
+    # print("Fighter Name to ID Mapping:")
+    # for fighter, fighter_id in fighter_id_map.items():
+    #     print(f"{fighter}: {fighter_id}")
+
+        
+    #Create new features which is a score of their past 3 fights
+    data[['fighter1_past3', 'fighter2_past3']] = data.apply(lambda row: calculate_past3(row, data), axis=1)
+    return data
