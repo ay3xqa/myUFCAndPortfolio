@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/ufcPicks/static/css/main.f66ffced.css",
-    "main.js": "/ufcPicks/static/js/main.35eb2fd0.js",
-    "static/js/453.419a5d54.chunk.js": "/ufcPicks/static/js/453.419a5d54.chunk.js",
-    "static/media/BRUNDAGE_CODY_L_04-13.png": "/ufcPicks/static/media/BRUNDAGE_CODY_L_04-13.f74d9742524d82756653.png",
-    "static/media/CORTEZ_TRACY_L_09-16.png": "/ufcPicks/static/media/CORTEZ_TRACY_L_09-16.f03dfadbd38878bfda82.png",
-    "static/media/PONZINIBBIO_SANTIAGO_L_07-13.png": "/ufcPicks/static/media/PONZINIBBIO_SANTIAGO_L_07-13.28bcc3250c1f05cd9f0e.png",
-    "static/media/LOOSA_ANGE_L_09-02.png": "/ufcPicks/static/media/LOOSA_ANGE_L_09-02.ae2bf6ba4c7aac956b0b.png",
-    "static/media/ALHASSAN_ABDUL_L_07-13.png": "/ufcPicks/static/media/ALHASSAN_ABDUL_L_07-13.e6293004c4b3861e12bd.png",
-    "static/media/DOBER_DREW_L_07-13.png": "/ufcPicks/static/media/DOBER_DREW_L_07-13.a0466a06a2c28f6a9de7.png",
-    "static/media/RODRIGUEZ_CHRISTIAN_L_03-16.png": "/ufcPicks/static/media/RODRIGUEZ_CHRISTIAN_L_03-16.a874e78113076fb30806.png",
-    "static/media/SILVA_JEAN_L_05-04.png": "/ufcPicks/static/media/SILVA_JEAN_L_05-04.7551a0f5790b1286c063.png",
-    "static/media/BONFIM_GABRIEL_L_07_25.png": "/ufcPicks/static/media/BONFIM_GABRIEL_L_07_25.b6eab45597979a7ce3f1.png",
-    "static/media/SALIKHOV_MUSLIM_L_02-03.png": "/ufcPicks/static/media/SALIKHOV_MUSLIM_L_02-03.d6c53055aca2ea6b2ade.png",
-    "static/media/NAMAJUNAS_ROSE_L_07-13.png": "/ufcPicks/static/media/NAMAJUNAS_ROSE_L_07-13.6fd12470eff5b87092d2.png",
-    "static/media/EROSA_JULIAN_L_07-13.png": "/ufcPicks/static/media/EROSA_JULIAN_L_07-13.d1c5422de868407c85c0.png",
-    "index.html": "/ufcPicks/index.html",
-    "main.f66ffced.css.map": "/ufcPicks/static/css/main.f66ffced.css.map",
-    "main.35eb2fd0.js.map": "/ufcPicks/static/js/main.35eb2fd0.js.map",
-    "453.419a5d54.chunk.js.map": "/ufcPicks/static/js/453.419a5d54.chunk.js.map"
+    "main.css": "/myUFCAndPortfolio/client/static/css/main.f66ffced.css",
+    "main.js": "/myUFCAndPortfolio/client/static/js/main.f7d8386f.js",
+    "static/js/453.419a5d54.chunk.js": "/myUFCAndPortfolio/client/static/js/453.419a5d54.chunk.js",
+    "static/media/BRUNDAGE_CODY_L_04-13.png": "/myUFCAndPortfolio/client/static/media/BRUNDAGE_CODY_L_04-13.f74d9742524d82756653.png",
+    "static/media/CORTEZ_TRACY_L_09-16.png": "/myUFCAndPortfolio/client/static/media/CORTEZ_TRACY_L_09-16.f03dfadbd38878bfda82.png",
+    "static/media/PONZINIBBIO_SANTIAGO_L_07-13.png": "/myUFCAndPortfolio/client/static/media/PONZINIBBIO_SANTIAGO_L_07-13.28bcc3250c1f05cd9f0e.png",
+    "static/media/LOOSA_ANGE_L_09-02.png": "/myUFCAndPortfolio/client/static/media/LOOSA_ANGE_L_09-02.ae2bf6ba4c7aac956b0b.png",
+    "static/media/ALHASSAN_ABDUL_L_07-13.png": "/myUFCAndPortfolio/client/static/media/ALHASSAN_ABDUL_L_07-13.e6293004c4b3861e12bd.png",
+    "static/media/DOBER_DREW_L_07-13.png": "/myUFCAndPortfolio/client/static/media/DOBER_DREW_L_07-13.a0466a06a2c28f6a9de7.png",
+    "static/media/RODRIGUEZ_CHRISTIAN_L_03-16.png": "/myUFCAndPortfolio/client/static/media/RODRIGUEZ_CHRISTIAN_L_03-16.a874e78113076fb30806.png",
+    "static/media/SILVA_JEAN_L_05-04.png": "/myUFCAndPortfolio/client/static/media/SILVA_JEAN_L_05-04.7551a0f5790b1286c063.png",
+    "static/media/BONFIM_GABRIEL_L_07_25.png": "/myUFCAndPortfolio/client/static/media/BONFIM_GABRIEL_L_07_25.b6eab45597979a7ce3f1.png",
+    "static/media/SALIKHOV_MUSLIM_L_02-03.png": "/myUFCAndPortfolio/client/static/media/SALIKHOV_MUSLIM_L_02-03.d6c53055aca2ea6b2ade.png",
+    "static/media/NAMAJUNAS_ROSE_L_07-13.png": "/myUFCAndPortfolio/client/static/media/NAMAJUNAS_ROSE_L_07-13.6fd12470eff5b87092d2.png",
+    "static/media/EROSA_JULIAN_L_07-13.png": "/myUFCAndPortfolio/client/static/media/EROSA_JULIAN_L_07-13.d1c5422de868407c85c0.png",
+    "index.html": "/myUFCAndPortfolio/client/index.html",
+    "main.f66ffced.css.map": "/myUFCAndPortfolio/client/static/css/main.f66ffced.css.map",
+    "main.f7d8386f.js.map": "/myUFCAndPortfolio/client/static/js/main.f7d8386f.js.map",
+    "453.419a5d54.chunk.js.map": "/myUFCAndPortfolio/client/static/js/453.419a5d54.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f66ffced.css",
-    "static/js/main.35eb2fd0.js"
+    "static/js/main.f7d8386f.js"
   ]
 }
