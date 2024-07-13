@@ -76,7 +76,7 @@ export default function FightRow(props){
             <h1>{apiResponse ? (apiResponse > (props.line*300) ? `Over ${props.line} rounds` : `Under ${props.line} rounds`) : 'Calculating...'}</h1>
             <span>Predicted Duration: {apiResponse ? `${apiResponse} seconds` : 'Calculating...'} </span>
         </div>
-        <hr/>
+        {props.index < props.total - 1 && <hr />}
         </>
     )
 }
