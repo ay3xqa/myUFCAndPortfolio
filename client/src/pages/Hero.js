@@ -2,9 +2,11 @@ import FightRow from "../components/FightRow";
 import React from 'react';
 import fightData from '../MainCardData';
 
+
 export default function Hero(){
     const fights = fightData.map(fight => {
         return <FightRow
+                key = {fight.f1_name+fight.f2_name}
                 f1_name = {fight.f1_name}
                 f2_name = {fight.f2_name}
                 f1_age = {fight.f1_age}
@@ -17,12 +19,18 @@ export default function Hero(){
                 f2_reach = {fight.f2_reach}
                 f1_image = {fight.f1_image}
                 f2_image = {fight.f2_image}
+                format = {fight.format}
+                over_odds = {fight.over_odds}
+                under_odds = {fight.under_odds}
+                line = {fight.line}
                 />
     })
 
     return (
+        <>
         <div className="Hero-container"> 
             {fights}
         </div>
+        </>
     )
 }
