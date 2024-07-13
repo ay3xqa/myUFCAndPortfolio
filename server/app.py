@@ -5,7 +5,6 @@ from fastai import *
 from fastai.learner import load_learner
 from modelUtility import create_new_test_fight, get_model_dataframe
 from fighterMap_7_12_24 import fighter_map
-import joblib
 from flask_cors import CORS  # Import CORS
 
 
