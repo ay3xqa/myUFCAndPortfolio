@@ -19,7 +19,7 @@ export default function FightRow(props){
             fight_format: props.format
         };
 
-        axios.post('http://127.0.0.1:5000/predict', payload)
+        axios.post('https://ufc-picks-api-5897a84a5ddf.herokuapp.com/predict', payload)
             .then(response => {
                 console.log(response.data); // Handle response data
                 setApiResponse(response.data.predicted_duration);
