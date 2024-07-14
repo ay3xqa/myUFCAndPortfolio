@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import sys
+import os
 from pathlib import Path
 import pathlib
 from fastai import *
@@ -62,4 +63,9 @@ def home():
     return 'Welcome to the Flask API'
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # For local development
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
+
+# For deployment on Heroku
+if 'DYNO' in os.environ:
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
