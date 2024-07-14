@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/myUFCAndPortfolio/static/css/main.f66ffced.css",
-    "main.js": "/myUFCAndPortfolio/static/js/main.06164677.js",
+    "main.js": "/myUFCAndPortfolio/static/js/main.d776a351.js",
     "static/js/453.419a5d54.chunk.js": "/myUFCAndPortfolio/static/js/453.419a5d54.chunk.js",
     "static/media/BRUNDAGE_CODY_L_04-13.png": "/myUFCAndPortfolio/static/media/BRUNDAGE_CODY_L_04-13.f74d9742524d82756653.png",
     "static/media/CORTEZ_TRACY_L_09-16.png": "/myUFCAndPortfolio/static/media/CORTEZ_TRACY_L_09-16.f03dfadbd38878bfda82.png",
@@ -17,11 +17,11 @@
     "static/media/EROSA_JULIAN_L_07-13.png": "/myUFCAndPortfolio/static/media/EROSA_JULIAN_L_07-13.d1c5422de868407c85c0.png",
     "index.html": "/myUFCAndPortfolio/index.html",
     "main.f66ffced.css.map": "/myUFCAndPortfolio/static/css/main.f66ffced.css.map",
-    "main.06164677.js.map": "/myUFCAndPortfolio/static/js/main.06164677.js.map",
+    "main.d776a351.js.map": "/myUFCAndPortfolio/static/js/main.d776a351.js.map",
     "453.419a5d54.chunk.js.map": "/myUFCAndPortfolio/static/js/453.419a5d54.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f66ffced.css",
-    "static/js/main.06164677.js"
+    "static/js/main.d776a351.js"
   ]
 }
