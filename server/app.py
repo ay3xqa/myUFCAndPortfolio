@@ -1,11 +1,12 @@
 from flask import Flask, request, jsonify
+import sys
+import os
 from pathlib import Path
 import pathlib
 from fastai import *
 from fastai.learner import load_learner
 from modelUtility import create_new_test_fight, get_model_dataframe
-from fighterMap_7_12_24 import fighter_map
-import joblib
+from fighterMap_7_19_24 import fighter_map
 from flask_cors import CORS  # Import CORS
 
 
@@ -13,16 +14,29 @@ app = Flask(__name__)
 CORS(app)
 
 # Load your trained model
-temp = pathlib.PosixPath
-pathlib.PosixPath = pathlib.WindowsPath
+# temp = pathlib.PosixPath
+# pathlib.PosixPath = pathlib.WindowsPath
 
-pkl_file_path = "tabular-7-12-24.pkl"
+# pkl_file_path = Path("tabular-7-12-24.pkl")
 # Load the learner from .pkl file
-learn = load_learner(pkl_file_path)
+# learn = load_learner(str(pkl_file_path))
 
+# pathlib.PosixPath = temp
+
+# Adjust pathlib behavior based on the operating system
+temp = pathlib.PosixPath
+if sys.platform.startswith('win'):
+    # Replace PosixPath with WindowsPath temporarily
+    pathlib.PosixPath = pathlib.WindowsPath
+    pkl_file_path = pathlib.Path("tabular-7-19-24.pkl")
+else:
+    # Use PosixPath directly on non-Windows systems
+    pkl_file_path = "tabular-7-19-24.pkl"
+learn = load_learner(pkl_file_path)
 pathlib.PosixPath = temp
 
-cleaned_data = get_model_dataframe("ufc_fights_3yrs_from_7_8_23.csv")
+
+cleaned_data = get_model_dataframe("ufc_fights_from_3yr_7_19_24.csv")
 
 def predict(input_data):
     # Process input_data (if necessary)
@@ -49,4 +63,9 @@ def home():
     return 'Welcome to the Flask API'
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # For local development
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
+
+# For deployment on Heroku
+if 'DYNO' in os.environ:
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
