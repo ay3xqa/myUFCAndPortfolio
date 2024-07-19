@@ -33,7 +33,8 @@ export default function FightRow(props){
         <>
         <div className="FightRow-container">
             <div>
-                <img className="FightRow-fighter-image" src={require(`../images/${props.f1_image}`)} alt=""></img>
+                {/* <img className="FightRow-fighter-image" src={require(`../images/${props.f1_image}`)} alt=""></img> */}
+                <img className="FightRow-fighter-image" src={props.f1_image} alt=""></img>
                 <p>{props.f1_name}</p>
             </div>
             <div className="FightRow-statistics">
@@ -65,7 +66,8 @@ export default function FightRow(props){
                 </ul>
             </div>
             <div>
-                <img className="FightRow-fighter-image" src={require(`../images/${props.f2_image}`)} alt=""></img>
+                {/* <img className="FightRow-fighter-image" src={require(`../images/${props.f2_image}`)} alt=""></img> */}
+                <img className="FightRow-fighter-image" src={props.f2_image} alt=""></img>
                 <p>{props.f2_name}</p>
             </div>
         </div>
