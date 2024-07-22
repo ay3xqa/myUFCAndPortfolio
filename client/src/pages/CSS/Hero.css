@@ -1,3 +1,7 @@
 .Hero-container {
     background-color: black;
+    background-image: url("../../images/bg-2.jpg");
+    background-size: auto; /* Optional: adjuts the image size to cover the div */
+    background-position: center; /* Optional: centers the image in the div */
+    background-repeat: repeat; 
 }
