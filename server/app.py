@@ -6,7 +6,7 @@ import pathlib
 from fastai import *
 from fastai.learner import load_learner
 from modelUtility import create_new_test_fight, get_model_dataframe
-from fighterMap_7_19_24 import fighter_map
+from fighterMap_7_21_24 import fighter_map
 from flask_cors import CORS  # Import CORS
 import pandas as pd
 
@@ -29,15 +29,15 @@ temp = pathlib.PosixPath
 if sys.platform.startswith('win'):
     # Replace PosixPath with WindowsPath temporarily
     pathlib.PosixPath = pathlib.WindowsPath
-    pkl_file_path = pathlib.Path("tabular-7-19-24.pkl")
+    pkl_file_path = pathlib.Path("tabular-7-21-24.pkl")
 else:
     # Use PosixPath directly on non-Windows systems
-    pkl_file_path = "tabular-7-19-24.pkl"
+    pkl_file_path = "tabular-7-21-24.pkl"
 learn = load_learner(pkl_file_path)
 pathlib.PosixPath = temp
 
 
-cleaned_data = get_model_dataframe("ufc_fights_from_3yr_7_19_24.csv")
+cleaned_data = get_model_dataframe("ufc_fights_from_3yr_7_21_24.csv")
 
 def predict(input_data):
     # Process input_data (if necessary)
