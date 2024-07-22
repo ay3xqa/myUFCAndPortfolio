@@ -37,7 +37,7 @@ learn = load_learner(pkl_file_path)
 pathlib.PosixPath = temp
 
 
-cleaned_data = get_model_dataframe("ufc_fights_from_3yr_7_21_24.csv")
+cleaned_data = get_model_dataframe("ufc_fights_3yr_7_21_24.csv")
 
 def predict(input_data):
     # Process input_data (if necessary)
