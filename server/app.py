@@ -8,6 +8,7 @@ from fastai.learner import load_learner
 from modelUtility import create_new_test_fight, get_model_dataframe
 from fighterMap_7_19_24 import fighter_map
 from flask_cors import CORS  # Import CORS
+import pandas as pd
 
 
 app = Flask(__name__)
@@ -57,6 +58,69 @@ def get_prediction():
 @app.route('/test', methods=['GET'])
 def test_endpoint():
     return 'Hello World'
+
+
+@app.route('/get-trackrecord', methods=['GET'])
+def get_trackrecord():
+    # Load data from the Excel file
+    df = pd.read_excel('UFC_Trackrecord.xlsx')
+
+    # Convert Date column to datetime
+    df['Date'] = pd.to_datetime(df['Date'])
+
+    # Sort the DataFrame by date in ascending order
+    df = df.sort_values(by='Date')
+
+    # Calculate cumulative units
+    df['Cumulative_Units'] = df['Units'].cumsum()
+
+    # Prepare data for Chart.js
+    # Group by event, taking the last cumulative unit for each event
+    chart_data = df.groupby('Event').agg({
+        'Cumulative_Units': 'last',
+        'Date': 'first'
+    }).reset_index()
+
+    # Sort the final DataFrame by the date of the first occurrence of each event
+    chart_data = chart_data.sort_values(by='Date')
+
+    # Convert the final DataFrame to a list of dictionaries
+    chart_data_list = chart_data.to_dict(orient='records')
+
+    return jsonify(chart_data_list)
+
+@app.route('/get-event-trackrecord', methods=['GET'])
+def get_event_details():
+    event_name = request.args.get('event')
+    if not event_name:
+        return jsonify({'error': 'Event name is required'}), 400
+    
+    # Load data from the Excel file (or wherever your data is stored)
+    df = pd.read_excel('UFC_Trackrecord.xlsx')
+
+    # Filter data by event name
+    event_data = df[df['Event'] == event_name]
+    event_date = event_data["Date"].iloc[0]
+    event_date = event_date.to_pydatetime()
+    formatted_date = event_date.strftime('%m-%d-%Y')
+
+    # Calculate wins and losses
+    wins = (event_data['Units'] > 0).sum()
+    losses = (event_data['Units'] < 0).sum()
+
+    # Calculate cumulative units
+    cumulative_units = event_data['Units'].sum()
+
+    event_details = {
+        'event': event_name,
+        'date': formatted_date,
+        'wins': int(wins),
+        'losses': int(losses),
+        'cumulative_units': float(round(cumulative_units,2))
+    }
+    print(event_details)
+
+    return jsonify(event_details)
 
 @app.route('/', methods=['GET'])
 def home():
