@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/myUFCAndPortfolio/static/css/main.f66ffced.css",
-    "main.js": "/myUFCAndPortfolio/static/js/main.8b0a5a5f.js",
+    "main.css": "/myUFCAndPortfolio/static/css/main.2e2d798e.css",
+    "main.js": "/myUFCAndPortfolio/static/js/main.9e8fd454.js",
     "static/js/453.419a5d54.chunk.js": "/myUFCAndPortfolio/static/js/453.419a5d54.chunk.js",
+    "static/media/bg-2.jpg": "/myUFCAndPortfolio/static/media/bg-2.db662334de88e82ffac5.jpg",
     "index.html": "/myUFCAndPortfolio/index.html",
-    "main.f66ffced.css.map": "/myUFCAndPortfolio/static/css/main.f66ffced.css.map",
-    "main.8b0a5a5f.js.map": "/myUFCAndPortfolio/static/js/main.8b0a5a5f.js.map",
+    "main.2e2d798e.css.map": "/myUFCAndPortfolio/static/css/main.2e2d798e.css.map",
+    "main.9e8fd454.js.map": "/myUFCAndPortfolio/static/js/main.9e8fd454.js.map",
     "453.419a5d54.chunk.js.map": "/myUFCAndPortfolio/static/js/453.419a5d54.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f66ffced.css",
-    "static/js/main.8b0a5a5f.js"
+    "static/css/main.2e2d798e.css",
+    "static/js/main.9e8fd454.js"
   ]
 }
