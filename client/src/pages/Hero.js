@@ -1,11 +1,10 @@
 import FightRow from "../components/FightRow";
 import React from 'react';
-import fightData from '../MainCardData';
-import fightD from '../MainCardData.json';
+import fightData from '../MainCardData.json';
 
 
 export default function Hero(){
-    const fights = fightD.map((fight, index) => {
+    const fights = fightData.map((fight, index) => {
         return (
             <FightRow
                 key={index}
