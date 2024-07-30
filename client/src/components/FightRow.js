@@ -32,7 +32,7 @@ export default function FightRow(props){
     return (
         <>
         <div className="FightRow-container">
-            <div>
+            <div className = "FightRow-title-container">
                 {/* <img className="FightRow-fighter-image" src={require(`../images/${props.f1_image}`)} alt=""></img> */}
                 <img className="FightRow-fighter-image" src={props.f1_image} alt=""></img>
                 <p>{props.f1_name}</p>
@@ -65,20 +65,34 @@ export default function FightRow(props){
                     </li>
                 </ul>
             </div>
-            <div>
+            <div className = "FightRow-title-container">
                 {/* <img className="FightRow-fighter-image" src={require(`../images/${props.f2_image}`)} alt=""></img> */}
                 <img className="FightRow-fighter-image" src={props.f2_image} alt=""></img>
                 <p>{props.f2_name}</p>
             </div>
         </div>
         <div className="FightPrediction-container">
-            <span>Fight Format: {props.format} rounds</span>
-            <span>Over {props.line} {props.over_odds}</span>
-            <span>Under {props.line} {props.under_odds}</span>
-            <h1>{apiResponse ? (apiResponse > (props.line*300) ? `Over ${props.line} rounds` : `Under ${props.line} rounds`) : 'Calculating...'}</h1>
-            <span>Predicted Duration: {apiResponse ? `${apiResponse} seconds` : 'Calculating...'} </span>
+            <span className="FightPrediction-container-rounds">{props.format} rounds</span>
+            <div className="scoreboard">
+                {Array.from({ length: props.format }, (_, index) => {
+                    const isHighlighted = index < Math.floor(props.line);
+                    const isPartial = Math.floor(props.line) === index;
+                    return (
+                        <div
+                            key={index}
+                            className={`round-box ${isHighlighted ? 'highlighted' : ''} ${isPartial ? 'partial' : ''}`}
+                        ></div>
+                    );
+                })}
+            </div>
+            <div className="Lines">
+                <div className={apiResponse ? (apiResponse > (props.line*300) ? `Line-container line-highlight` : `Line-container`) : 'Line-container'}>  <span>Over {props.line} <br></br> {props.over_odds}</span></div>
+                <div className={apiResponse ? (apiResponse > (props.line*300) ? `Line-container` : `Line-container line-highlight`) : 'Line-container'}>            <span>Under {props.line} <br></br>{props.under_odds}</span></div>
+            </div>
+            <h2>{apiResponse ? (apiResponse > (props.line*300) ? `Over ${props.line} rounds` : `Under ${props.line} rounds`) : 'Calculating...'}</h2>
+            <span>Predicted Duration: {apiResponse ? `${Math.round(apiResponse)} seconds` : 'Calculating...'} </span>
         </div>
-        {props.index < props.total - 1 && <hr />}
+        {props.index < props.total - 1 && <hr className="FightRow-divider"/>}
         </>
     )
 }

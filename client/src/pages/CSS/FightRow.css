@@ -8,13 +8,25 @@
     padding: 25px;
 }
 
+.FightRow-divider{
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
 .FightRow-fighter-image{
     height: 500px;
+    width: auto;
 }
 
 .FightRow-statistics{
     width: 100%;
     color: white;
+    
+}
+
+.FightRow-statistics > h2{
+    font-family: "BebasNeue";
+    font-size: 40px;
 }
 
 .FightRow-statistics > ul{
@@ -28,8 +40,139 @@
     height: 100px;
     align-items: center;
     background-color: black;
+    padding-left: 15px;
+    padding-right: 15px;
+    
 }
 
 .FightRow-statistics > ul > li > span{
     font-size: 30px;
+    font-family: "BebasNeue";
+}
+
+.FightRow-title-container {
+    position: relative;
+}
+
+.FightRow-title-container > p{
+    font-family: "BebasNeue";
+    font-size: 50px;
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -20%); /* Adjust for centering */
+    color: white; /* Text color, adjust as needed */
+    padding: 10px; /* Optional padding */
+    border-radius: 5px; /* Optional border radius */
+    text-align: center; /* Center text */
+    text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.6); /* Creates a black border around the text */
+
+}
+.FightPrediction-container-rounds {
+    font-family: "BebasNeue";
+    font-size: 40px;
+}
+.Lines{
+    display: flex;
+    align-self: center;
+    column-gap: 25px;
+}
+.Line-container
+{
+    border: 2px solid #333; /* Border color and width */
+    background-color: transparent; /* Transparent background */
+    border-radius: 12px; /* Rounded corners */
+    padding: 10px; /* Space inside the border */
+    margin-bottom: 10px; /* Space between items */
+    display: flex;
+    align-items: center; /* Vertically centers the text */
+    width: 100px;
+    justify-content: center;
+
+}
+
+.scoreboard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px; /* Space between the boxes */
+    margin: 20px 0;
+}
+
+/* Styling for each round box */
+.round-box {
+    width: 50px; /* Adjust width as needed */
+    height: 10px; /* Adjust height as needed */
+    background-color: gray; /* Default color for unhighlighted boxes */
+    border-radius: 2px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth transition for color change */
+    position: relative;
+}
+
+/* Styling for highlighted boxes */
+.round-box.highlighted {
+    background-color: white; /* Color for highlighted boxes */
+    border: 2px solid #000; /* Optional: Add border for better visibility */
+}
+
+/* Styling for partial boxes */
+.round-box.partial {
+    background: linear-gradient(to right, white 50%, gray 50%); /* Gradient to show partial highlight */
+}
+
+.line-highlight {
+    border-color: #FFD700;
+    color: #FFD700;
+}
+
+@media only screen and (min-width: 429px) and (max-width: 1215px) {
+    .FightRow-fighter-image{
+        width: auto;
+        height: 250px;
+    }
+
+    .FightRow-title-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .FightRow-statistics > ul > li{
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+@media only screen and (max-width: 440px) {
+    .FightRow-fighter-image{
+        width: auto;
+        height:180px;
+    }
+
+    .FightRow-statistics{
+        visibility: hidden;
+        width: 0;
+    }
+
+    .FightRow-container
+    {
+        height: 250px;
+        overflow: hidden;
+        justify-content: center;
+    }
+
+    .FightRow-title-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .FightRow-title-container > p {
+        font-size: 15px;
+        transform: translate(-50%, 20%); /* Adjust for centering */
+    }
+
+    .FightRow-container > p{
+        font-size: 5px;
+    }
 }

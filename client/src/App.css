@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+  background-color: black;
+  background-image: url("images/bg-2.jpg");
+  background-size: auto; /* Optional: adjuts the image size to cover the div */
+  background-position: center; /* Optional: centers the image in the div */
+  background-repeat: repeat; 
 }
 
 .App-logo {
@@ -35,4 +40,36 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+*{
+  font-family: "OpenSans";
+}
+
+@font-face {
+  font-family: 'BebasNeue';
+  src: url(./fonts/BebasNeue-Regular.ttf);
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OpenSans';
+  src: url(./fonts/OpenSans-Medium.ttf);
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OpenSans';
+  src: url(./fonts/OpenSans-Regular.ttf);
+  font-weight: lighter;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OpenSans';
+  src: url(./fonts/OpenSans-Regular.ttf);
+  font-weight: lighter;
+  font-style: normal;
 }

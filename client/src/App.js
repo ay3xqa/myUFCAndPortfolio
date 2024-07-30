@@ -22,13 +22,14 @@
 import React, { useState } from 'react';
 import Hero from './pages/Hero';
 import Trackrecord from './pages/Trackrecord';
+import About from './pages/About';
 import './App.css';
 import './pages/CSS/Navbar.css';
 import './pages/CSS/Hero.css';
 
 function App() {
-    const [view, setView] = useState('hero');
-    const [activeButton, setActiveButton] = useState('hero');
+    const [view, setView] = useState('about');
+    const [activeButton, setActiveButton] = useState('about');
 
     const handleClick = (button) => {
       setActiveButton(button)
@@ -40,6 +41,9 @@ function App() {
             <nav className='nav-container'>
                 <ul>
                     <li>
+                        <button onClick={() => handleClick('about')} className={`boton-elegante ${activeButton === 'about' ? 'active' : ''}`}>About</button>
+                    </li>
+                    <li>
                         <button onClick={() => handleClick('hero')} className={`boton-elegante ${activeButton === 'hero' ? 'active' : ''}`}>Predictions</button>
                     </li>
                     <li>
@@ -48,7 +52,9 @@ function App() {
                 </ul>
             </nav>
             <div>
-                {view === 'hero' ? <Hero /> : <Trackrecord />}
+                {view === 'hero' && <Hero />}
+                {view === 'trackrecord' && <Trackrecord />}
+                {view === 'about' && <About />}
             </div>
         </div>
     );
