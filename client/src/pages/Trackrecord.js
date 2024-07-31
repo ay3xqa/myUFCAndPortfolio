@@ -51,7 +51,7 @@ function Trackrecord() {
       }
     }
   };
-    
+  
   return (
     <>
     <div className='Trackrecord-container'>
@@ -65,7 +65,15 @@ function Trackrecord() {
                 display: true,
                 text: 'Event',
                 font:{
+                    family: "BebasNeue",
                     size: 16
+                }
+              },
+              ticks: {
+                maxRotation: 45, // Rotate labels to 45 degrees
+                minRotation: 45,
+                font: {
+                  family: 'BebasNeue'
                 }
               }
             },
@@ -74,9 +82,12 @@ function Trackrecord() {
                 display: true,
                 text: 'Cumulative Units',
                 font:{
+                  family: "BebasNeue",
                     size: 16
                 }
-              }
+              },
+              min: -5,
+              max: 1
             }
           },           
           plugins: {
@@ -92,9 +103,10 @@ function Trackrecord() {
                 <div>
                     <h2>{eventRecord.event}</h2>
                     <p>{eventRecord.date}</p>
-                    <p>Wins: {eventRecord.wins}</p>
-                    <p>Losses: {eventRecord.losses}</p>
-                    <p>Cumulative Units: {eventRecord.cumulative_units}</p>
+                    <div className='Trackrecord-record'>
+                      <p>Wins {eventRecord.wins} - {eventRecord.losses} Losses</p>
+                    </div>
+                    <p className={eventRecord.cumulative_units < 0 ? "red" : "green"}>Cumulative Units: {eventRecord.cumulative_units}</p>
                 </div>
                 )}
         </div>

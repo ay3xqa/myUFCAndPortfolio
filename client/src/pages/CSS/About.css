@@ -1,0 +1,36 @@
+.About-container {
+    width: 80%;
+    margin: auto;
+    padding: 25px;
+    background-color: #1a1818;
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    font-family: "BebasNeue", sans-serif;
+}
+
+.About{
+    height: 100vh;
+}
+
+.About-text p {
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.About-text a {
+    color: #FFD700;
+    text-decoration: none;
+}
+
+.About-text a:hover {
+    text-decoration: underline;
+}
+
+.About-update {
+    display: block;
+    margin-top: 20px;
+    font-size: 18px;
+    color: #FFD700;
+}

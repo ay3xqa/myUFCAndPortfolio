@@ -10,6 +10,11 @@
     height: 100vh;
 }
 
+.Trackrecord-container > h1 {
+    font-family: "BebasNeue";
+    font-size: 50px;
+}
+
 .chart-container{
     display: flex;
     justify-content: center;
@@ -20,3 +25,39 @@
 .Trackrecord-individual-container{
     background-color: black;
 }
+
+.Trackrecord-individual-container > div > h2{
+    font-family: "BebasNeue";
+    font-size: 40px;
+}
+
+.Trackrecord-record {
+    display: flex;
+    justify-content: center;
+
+}
+
+.Trackrecord-record > p {
+    font-family: "BebasNeue";
+    font-size: 30px;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+@media only screen and (max-width: 768px) {
+    .chart-container {
+      height: 300px; /* Adjust height for smaller screens */
+    }
+  }
+  
+  @media only screen and (max-width: 480px) {
+    .chart-container {
+      height: 200px; /* Adjust height for phones */
+    }
+  }
