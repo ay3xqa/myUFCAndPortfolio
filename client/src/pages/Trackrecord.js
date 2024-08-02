@@ -86,7 +86,7 @@ function Trackrecord() {
                     size: 16
                 }
               },
-              min: -5,
+              min: -8,
               max: 1
             }
           },           

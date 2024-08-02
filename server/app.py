@@ -10,7 +10,6 @@ from fighterMap_7_19_24 import fighter_map
 from flask_cors import CORS  # Import CORS
 import pandas as pd
 
-
 app = Flask(__name__)
 CORS(app)
 
@@ -63,7 +62,7 @@ def test_endpoint():
 @app.route('/get-trackrecord', methods=['GET'])
 def get_trackrecord():
     # Load data from the Excel file
-    df = pd.read_excel('UFC_Trackrecord.xlsx')
+    df = pd.read_csv('UFC_Trackrecord.csv')
 
     # Convert Date column to datetime
     df['Date'] = pd.to_datetime(df['Date'])
@@ -96,7 +95,7 @@ def get_event_details():
         return jsonify({'error': 'Event name is required'}), 400
     
     # Load data from the Excel file (or wherever your data is stored)
-    df = pd.read_excel('UFC_Trackrecord.xlsx')
+    df = pd.read_csv('UFC_Trackrecord.csv')
 
     # Filter data by event name
     event_data = df[df['Event'] == event_name]
