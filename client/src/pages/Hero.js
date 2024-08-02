@@ -20,12 +20,26 @@ export default function Hero(){
                 f2_reach={fight.f2_reach}
                 f1_image={fight.f1_image}
                 f2_image={fight.f2_image}
+
                 format={fight.format}
                 over_odds={fight.over_odds}
                 under_odds={fight.under_odds}
                 line={fight.line}
+                // format={5}
+                // over_odds={"+155"}
+                // under_odds={"-140"}
+                // line={3.5}
+
                 index={index}
                 total={fightData.length}
+                f1_rank = {fight.f1_rank}
+                f2_rank = {fight.f2_rank}
+                f1_record = {fight.f1_record}
+                f1_ml = {fight.f1_ml}
+                f2_record = {fight.f2_record}
+                f2_ml = {fight.f2_ml}
+                f1_flag = {fight.f1_flag}
+                f2_flag = {fight.f2_flag}
             />
         );
     });

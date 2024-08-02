@@ -28,14 +28,32 @@ export default function FightRow(props){
                 console.error('Error fetching data:', error); // Handle errors
             });
     }, [props.f1_name, props.f2_name, props.format]); // Add dependencies to re-fetch if props change
-
+    console.log(props.f1_rank)
     return (
         <>
         <div className="FightRow-container">
             <div className = "FightRow-title-container">
                 {/* <img className="FightRow-fighter-image" src={require(`../images/${props.f1_image}`)} alt=""></img> */}
                 <img className="FightRow-fighter-image" src={props.f1_image} alt=""></img>
-                <p>{props.f1_name}</p>
+                <div className="FightRow-name-container">
+                    <div className="FightRow-name">
+                        <span className="FightRow-first-name">
+                            {props.f1_rank && (
+                                <span className={`FightRow-rank ${props.f1_rank.includes('C') ? 'champion' : ''}`}>
+                                    {props.f1_rank}
+                                </span>
+                            )}
+                            {props.f1_name.split(' ')[0]}
+      
+                        </span>
+                        <span className="FightRow-last-name">{props.f1_name.split(' ').slice(1).join(' ')}</span>
+                    </div>
+                </div>
+                <div className="FightRow-fighter-info">
+                    <img className="FightRow-country" src = {props.f1_flag} alt=""></img>
+                    <span>{props.f1_record}</span>
+                    <span>{props.f1_ml}</span>
+                </div>
             </div>
             <div className="FightRow-statistics">
                 <h2>Fight Statistics</h2>
@@ -68,7 +86,25 @@ export default function FightRow(props){
             <div className = "FightRow-title-container">
                 {/* <img className="FightRow-fighter-image" src={require(`../images/${props.f2_image}`)} alt=""></img> */}
                 <img className="FightRow-fighter-image" src={props.f2_image} alt=""></img>
-                <p>{props.f2_name}</p>
+                <div className="FightRow-name-container">
+                    <div className="FightRow-name">
+                        <span className="FightRow-first-name">
+                            {props.f2_rank && (
+                                <span className={`FightRow-rank ${props.f2_rank.includes('C') ? 'champion' : ''}`}>
+                                    {props.f2_rank}
+                                </span>
+                            )}
+                            {props.f2_name.split(' ')[0]}
+      
+                        </span>
+                        <span className="FightRow-last-name">{props.f2_name.split(' ').slice(1).join(' ')}</span>
+                    </div>
+                </div>
+                <div className="FightRow-fighter-info">
+                    <img className="FightRow-country" src = {props.f2_flag} alt=""></img>
+                    <span>{props.f2_record}</span>
+                    <span>{props.f2_ml}</span>
+                </div>
             </div>
         </div>
         <div className="FightPrediction-container">
