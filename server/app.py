@@ -94,13 +94,21 @@ def get_event_details():
     if not event_name:
         return jsonify({'error': 'Event name is required'}), 400
     
-    # Load data from the Excel file (or wherever your data is stored)
-    df = pd.read_csv('UFC_Trackrecord.csv')
-
+    # Load data from the CSV file
+    try:
+        df = pd.read_csv('UFC_Trackrecord.csv', parse_dates=['Date'])
+    except FileNotFoundError:
+        return jsonify({'error': 'Data file not found'}), 500
+    except pd.errors.EmptyDataError:
+        return jsonify({'error': 'No data in file'}), 500
+    
     # Filter data by event name
     event_data = df[df['Event'] == event_name]
+    if event_data.empty:
+        return jsonify({'error': 'Event not found'}), 404
+    
+    # Format the date
     event_date = event_data["Date"].iloc[0]
-    event_date = event_date.to_pydatetime()
     formatted_date = event_date.strftime('%m-%d-%Y')
 
     # Calculate wins and losses
@@ -115,7 +123,7 @@ def get_event_details():
         'date': formatted_date,
         'wins': int(wins),
         'losses': int(losses),
-        'cumulative_units': float(round(cumulative_units,2))
+        'cumulative_units': float(round(cumulative_units, 2))
     }
     print(event_details)
 
