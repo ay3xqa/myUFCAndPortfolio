@@ -6,37 +6,106 @@ import pathlib
 from fastai import *
 from fastai.learner import load_learner
 from modelUtility import create_new_test_fight, get_model_dataframe
-from fighterMap_7_19_24 import fighter_map
+#from fighterMap_7_19_24 import fighter_map
 from flask_cors import CORS  # Import CORS
 import pandas as pd
+import boto3
+import botocore
+from dotenv import load_dotenv
+import importlib.util
+from apscheduler.schedulers.background import BackgroundScheduler
+from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)
+load_dotenv()
 
-# Load your trained model
-# temp = pathlib.PosixPath
-# pathlib.PosixPath = pathlib.WindowsPath
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_DEFAULT_REGION = os.getenv('AWS_DEFAULT_REGION')
 
-# pkl_file_path = Path("tabular-7-12-24.pkl")
-# Load the learner from .pkl file
-# learn = load_learner(str(pkl_file_path))
+S3_BUCKET = 'ufc-picks-bucket'
+MODEL_FILE_KEY = 'tabular.pkl'
+DATA_FILE_KEY = 'ufc_fights.csv'
+MAP_FILE_KEY = 'fighterMap.py'
+TRACK_RECORD_FILE_KEY = 'UFC_Trackrecord.csv'
 
-# pathlib.PosixPath = temp
+s3 = boto3.client(
+    's3',
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+    region_name=AWS_DEFAULT_REGION
+)
+
+def get_s3_file_last_modified(bucket, key):
+    try:
+        response = s3.head_object(Bucket=bucket, Key=key)
+        return response['LastModified']
+    except botocore.exceptions.ClientError as e:
+        print(f"Error fetching metadata for {key}: {e}")
+        return None
+
+def download_file_from_s3(bucket_name, object_key, local_file_path):
+    import boto3
+    import os
+
+    s3 = boto3.client('s3')
+    s3_obj = s3.head_object(Bucket=bucket_name, Key=object_key)
+    
+    # Get S3 object's last modified time
+    s3_last_modified = s3_obj['LastModified'].replace(tzinfo=None)  # Convert to timezone-naive
+
+    if os.path.exists(local_file_path):
+        local_last_modified = datetime.fromtimestamp(os.path.getmtime(local_file_path))
+    else:
+        local_last_modified = datetime.min
+
+    # Compare timestamps
+    if s3_last_modified > local_last_modified:
+        s3.download_file(bucket_name, object_key, local_file_path)
+
+# def download_file_from_s3(bucket, key, filename):
+#     try:
+#         s3.download_file(bucket, key, filename)
+#     except botocore.exceptions.NoCredentialsError:
+#         print("Credentials not available")
+#     except botocore.exceptions.ClientError as e:
+#         if e.response['Error']['Code'] == "404":
+#             print(f"The object {key} does not exist in the bucket {bucket}.")
+#         else:
+#             raise
+
+def setup_files():
+    # Download necessary files from S3
+    download_file_from_s3(S3_BUCKET, MODEL_FILE_KEY, 'tabular.pkl')
+    download_file_from_s3(S3_BUCKET, DATA_FILE_KEY, 'ufc_fights.csv')
+    download_file_from_s3(S3_BUCKET, TRACK_RECORD_FILE_KEY, 'UFC_Trackrecord.csv')
+    download_file_from_s3(S3_BUCKET, MAP_FILE_KEY, 'fighterMap.py')
+
+def load_fighter_map(file_path):
+    spec = importlib.util.spec_from_file_location("fighter_map", file_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.fighter_map
+
+setup_files()
+# Import fighter_map from the downloaded file
+fighter_map = load_fighter_map('fighterMap.py')
 
 # Adjust pathlib behavior based on the operating system
 temp = pathlib.PosixPath
 if sys.platform.startswith('win'):
     # Replace PosixPath with WindowsPath temporarily
     pathlib.PosixPath = pathlib.WindowsPath
-    pkl_file_path = pathlib.Path("tabular-7-19-24.pkl")
+    pkl_file_path = pathlib.Path("tabular.pkl")
 else:
     # Use PosixPath directly on non-Windows systems
-    pkl_file_path = "tabular-7-19-24.pkl"
+    pkl_file_path = "tabular.pkl"
 learn = load_learner(pkl_file_path)
 pathlib.PosixPath = temp
 
 
-cleaned_data = get_model_dataframe("ufc_fights_from_3yr_7_19_24.csv")
+cleaned_data = get_model_dataframe("ufc_fights.csv")
 
 def predict(input_data):
     # Process input_data (if necessary)
@@ -133,6 +202,14 @@ def get_event_details():
 def home():
     return 'Welcome to the Flask API'
 
+
+def periodic_file_check():
+    setup_files()
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(periodic_file_check, 'interval', hours=24)  # Check every 24 hours
+scheduler.start()
+
 if __name__ == '__main__':
     # For local development
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
@@ -140,3 +217,4 @@ if __name__ == '__main__':
 # For deployment on Heroku
 if 'DYNO' in os.environ:
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+
