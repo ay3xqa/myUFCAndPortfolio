@@ -69,6 +69,80 @@
                 2px 2px 4px rgba(0, 0, 0, 0.6); /* Creates a black border around the text */
 
 }
+
+.FightRow-country{
+    height:50px;
+    width:auto;
+}
+
+.FightRow-name-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    line-height: 1;
+}
+
+.FightRow-name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.FightRow-first-name {
+    font-family: "BebasNeue";
+    font-size: 50px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+}
+
+.FightRow-last-name {
+    font-family: "BebasNeue";
+    font-size: 50px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.FightRow-rank {
+    font-family: "BebasNeue";
+    background-color: #a4a4a4; /* Default background color for numbers */
+    text-shadow: none;
+    color: black; /* Text color */
+    font-size: 20px; /* Font size */
+    text-align: center; /* Center text horizontally */
+    width: 25px; /* Adjust width to fit text */
+    height: 25px; /* Adjust height to fit text */
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center text vertically */
+    justify-content: center; /* Center text horizontally */
+    margin-right: 5px; /* Space between the rank and name */
+    margin-bottom: 15px;
+    line-height: 1; /* Ensure line height doesn't affect vertical centering */
+}
+
+.FightRow-rank.champion {
+    background-color: gold; /* Background color for champions */
+}
+
+.FightRow-fighter-info {
+    font-family: 'BebasNeue';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.FightRow-fighter-info > span {
+    font-family: 'BebasNeue';
+    font-size: 25px
+}
+
 .FightPrediction-container-rounds {
     font-family: "BebasNeue";
     font-size: 40px;
@@ -142,6 +216,11 @@
         padding-left: 5px;
         padding-right: 5px;
     }
+
+    .FightRow-fighter-info{
+        visibility: hidden;
+        height: 0;
+    }
 }
 @media only screen and (max-width: 440px) {
     .FightRow-fighter-image{
@@ -169,10 +248,29 @@
 
     .FightRow-title-container > p {
         font-size: 15px;
-        transform: translate(-50%, 20%); /* Adjust for centering */
+        transform: translate(-50%, 30%); /* Adjust for centering */
+    }
+    
+    .FightRow-fighter-info{
+        visibility: hidden;
+        height: 0;
+        width: 0;
     }
 
-    .FightRow-container > p{
-        font-size: 5px;
+    .FightRow-name > span{
+        font-size: 15px;
+    }
+
+    .FightRow-rank {
+        font-size: 8px; /* Font size */
+        width: 10px; /* Adjust width to fit text */
+        height: 10px; /* Adjust height to fit text */
+        display: flex; /* Use flexbox for centering */
+        margin-right: 2px; /* Space between the rank and name */
+        margin-bottom: 5px;
+    }
+
+    .FightRow-name-container {
+        transform: translate(-50%, -50%);
     }
 }
