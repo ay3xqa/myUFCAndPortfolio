@@ -1,9 +1,22 @@
 import FightRow from "../components/FightRow";
-import React from 'react';
-import fightData from '../MainCardData.json';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+// import fightData from '../MainCardData.json';
 
 
 export default function Hero(){
+    const [fightData, setFightData] = useState([])
+    useEffect(() => {
+        axios.get('https://ufc-picks-api-5897a84a5ddf.herokuapp.com/ufc_main_card')
+            .then(response => {
+                console.log(response.data)
+                setFightData(response.data)
+            })
+            .catch(error => {
+                console.error('Error fetching the main card data', error);
+            });
+      }, []);
+
     const fights = fightData.map((fight, index) => {
         return (
             <FightRow
@@ -21,10 +34,10 @@ export default function Hero(){
                 f1_image={fight.f1_image}
                 f2_image={fight.f2_image}
 
-                format={fight.format}
-                over_odds={fight.over_odds}
-                under_odds={fight.under_odds}
-                line={fight.line}
+                // format={fight.format}
+                // over_odds={fight.over_odds}
+                // under_odds={fight.under_odds}
+                // line={fight.line}
                 // format={5}
                 // over_odds={"+155"}
                 // under_odds={"-140"}

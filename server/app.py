@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 import sys
 import os
 from pathlib import Path
@@ -6,7 +6,6 @@ import pathlib
 from fastai import *
 from fastai.learner import load_learner
 from modelUtility import create_new_test_fight, get_model_dataframe
-#from fighterMap_7_19_24 import fighter_map
 from flask_cors import CORS  # Import CORS
 import pandas as pd
 import boto3
@@ -14,7 +13,12 @@ import botocore
 from dotenv import load_dotenv
 import importlib.util
 from apscheduler.schedulers.background import BackgroundScheduler
+from maincardspider import MaincardspiderSpider
 from datetime import datetime
+
+import subprocess
+
+from scrapy.crawler import CrawlerRunner
 
 app = Flask(__name__)
 CORS(app)
@@ -29,6 +33,7 @@ MODEL_FILE_KEY = 'tabular.pkl'
 DATA_FILE_KEY = 'ufc_fights.csv'
 MAP_FILE_KEY = 'fighterMap.py'
 TRACK_RECORD_FILE_KEY = 'UFC_Trackrecord.csv'
+ODDS_FILE = "Odds.json"
 
 s3 = boto3.client(
     's3',
@@ -64,23 +69,13 @@ def download_file_from_s3(bucket_name, object_key, local_file_path):
     if s3_last_modified > local_last_modified:
         s3.download_file(bucket_name, object_key, local_file_path)
 
-# def download_file_from_s3(bucket, key, filename):
-#     try:
-#         s3.download_file(bucket, key, filename)
-#     except botocore.exceptions.NoCredentialsError:
-#         print("Credentials not available")
-#     except botocore.exceptions.ClientError as e:
-#         if e.response['Error']['Code'] == "404":
-#             print(f"The object {key} does not exist in the bucket {bucket}.")
-#         else:
-#             raise
-
 def setup_files():
     # Download necessary files from S3
     download_file_from_s3(S3_BUCKET, MODEL_FILE_KEY, 'tabular.pkl')
     download_file_from_s3(S3_BUCKET, DATA_FILE_KEY, 'ufc_fights.csv')
     download_file_from_s3(S3_BUCKET, TRACK_RECORD_FILE_KEY, 'UFC_Trackrecord.csv')
     download_file_from_s3(S3_BUCKET, MAP_FILE_KEY, 'fighterMap.py')
+    download_file_from_s3(S3_BUCKET, ODDS_FILE, 'Odds.json')
 
 def load_fighter_map(file_path):
     spec = importlib.util.spec_from_file_location("fighter_map", file_path)
@@ -198,16 +193,27 @@ def get_event_details():
 
     return jsonify(event_details)
 
+@app.route('/ufc_main_card', methods=['GET'])
+def get_ufc_main_card():
+    return send_file('ufc_main_card.json', mimetype='application/json')
+
+@app.route('/odds_data', methods=['GET'])
+def get_odds_file():
+    return send_file('Odds.json', mimetype='application/json')
+
 @app.route('/', methods=['GET'])
 def home():
     return 'Welcome to the Flask API'
 
+def run_scrapy_spider():
+    subprocess.run([sys.executable, 'run_spider.py'], check=True)
 
 def periodic_file_check():
     setup_files()
 
 scheduler = BackgroundScheduler()
 scheduler.add_job(periodic_file_check, 'interval', hours=24)  # Check every 24 hours
+scheduler.add_job(run_scrapy_spider, 'cron', day_of_week='wed', hour=2, minute=0)
 scheduler.start()
 
 if __name__ == '__main__':

@@ -3,6 +3,8 @@ import "../pages/CSS/FightPrediction.css";
 
 // import rose from "../images/NAMAJUNAS_ROSE_L_07-13.png";
 // import tracy from "../images/CORTEZ_TRACY_L_09-16.png";
+import odds from '../Odds.json';
+
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
@@ -16,7 +18,7 @@ export default function FightRow(props){
         const payload = {
             f1_name: props.f1_name,
             f2_name: props.f2_name,
-            fight_format: props.format
+            fight_format: odds[props.index].format
         };
 
         axios.post('https://ufc-picks-api-5897a84a5ddf.herokuapp.com/predict', payload)
@@ -27,8 +29,7 @@ export default function FightRow(props){
             .catch(error => {
                 console.error('Error fetching data:', error); // Handle errors
             });
-    }, [props.f1_name, props.f2_name, props.format]); // Add dependencies to re-fetch if props change
-    console.log(props.f1_rank)
+    }, [props.f1_name, props.f2_name, props.index]); // Add dependencies to re-fetch if props change
     return (
         <>
         <div className="FightRow-container">
@@ -108,11 +109,11 @@ export default function FightRow(props){
             </div>
         </div>
         <div className="FightPrediction-container">
-            <span className="FightPrediction-container-rounds">{props.format} rounds</span>
+            <span className="FightPrediction-container-rounds">{odds[props.index].format} rounds</span>
             <div className="scoreboard">
-                {Array.from({ length: props.format }, (_, index) => {
-                    const isHighlighted = index < Math.floor(props.line);
-                    const isPartial = Math.floor(props.line) === index;
+                {Array.from({ length: odds[props.index].format }, (_, index) => {
+                    const isHighlighted = index < Math.floor(odds[props.index].line);
+                    const isPartial = Math.floor(odds[props.index].line) === index;
                     return (
                         <div
                             key={index}
@@ -122,10 +123,10 @@ export default function FightRow(props){
                 })}
             </div>
             <div className="Lines">
-                <div className={apiResponse ? (apiResponse > (props.line*300) ? `Line-container line-highlight` : `Line-container`) : 'Line-container'}>  <span>Over {props.line} <br></br> {props.over_odds}</span></div>
-                <div className={apiResponse ? (apiResponse > (props.line*300) ? `Line-container` : `Line-container line-highlight`) : 'Line-container'}>            <span>Under {props.line} <br></br>{props.under_odds}</span></div>
+                <div className={apiResponse ? (apiResponse > (odds[props.index].line*300) ? `Line-container line-highlight` : `Line-container`) : 'Line-container'}>  <span>Over {odds[props.index].line} <br></br> {odds[props.index].over_odds}</span></div>
+                <div className={apiResponse ? (apiResponse > (odds[props.index].line*300) ? `Line-container` : `Line-container line-highlight`) : 'Line-container'}>            <span>Under {odds[props.index].line} <br></br>{odds[props.index].under_odds}</span></div>
             </div>
-            <h2>{apiResponse ? (apiResponse > (props.line*300) ? `Over ${props.line} rounds` : `Under ${props.line} rounds`) : 'Calculating...'}</h2>
+            <h2>{apiResponse ? (apiResponse > (odds[props.index].line*300) ? `Over ${odds[props.index].line} rounds` : `Under ${odds[props.index].line} rounds`) : 'Calculating...'}</h2>
             <span>Predicted Duration: {apiResponse ? `${Math.round(apiResponse)} seconds` : 'Calculating...'} </span>
         </div>
         {props.index < props.total - 1 && <hr className="FightRow-divider"/>}
