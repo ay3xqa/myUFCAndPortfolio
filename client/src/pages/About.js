@@ -16,7 +16,7 @@ export default function About() {
                 <p>
                     You can find the source code and contribute to this project on GitHub: <a href="https://github.com/ay3xqa/myUFCAndPortfolio" target="_blank" rel="noopener noreferrer">myUFCAndPortfolio</a>.
                 </p>
-                <span className="About-update">Last updated on: 7/29/24</span>
+                <span className="About-update">Last updated on: 8/11/24</span>
             </div>
         </div>
         </div>
