@@ -216,6 +216,8 @@ scheduler.add_job(periodic_file_check, 'interval', hours=24)  # Check every 24 h
 scheduler.add_job(run_scrapy_spider, 'cron', day_of_week='wed', hour=2, minute=0)
 scheduler.start()
 
+run_scrapy_spider()
+
 if __name__ == '__main__':
     # For local development
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
