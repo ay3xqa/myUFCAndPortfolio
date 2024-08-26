@@ -19,10 +19,11 @@
 // }
 // export default App;
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Hero from './pages/Hero';
 import Trackrecord from './pages/Trackrecord';
 import About from './pages/About';
+import axios from 'axios';
 import './App.css';
 import './pages/CSS/Navbar.css';
 import './pages/CSS/Hero.css';
@@ -30,7 +31,21 @@ import './pages/CSS/Hero.css';
 function App() {
     const [view, setView] = useState('about');
     const [activeButton, setActiveButton] = useState('about');
+    const [fightData, setFightData] = useState([])
+    const [loading, setLoading] = useState(true);
 
+    useEffect(() => {
+        axios.get('https://ufc-picks-api-5897a84a5ddf.herokuapp.com/ufc_main_card')
+            .then(response => {
+                console.log(response.data)
+                setFightData(response.data)
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching the main card data', error);
+                setLoading(false);
+            });
+      }, []);
     const handleClick = (button) => {
       setActiveButton(button)
       setView(button)
@@ -52,7 +67,8 @@ function App() {
                 </ul>
             </nav>
             <div>
-                {view === 'hero' && <Hero />}
+                {view === 'hero' && !loading && <Hero fightData={fightData} />}
+                {view === 'hero' && loading && <h2>Loading...</h2>}
                 {view === 'trackrecord' && <Trackrecord />}
                 {view === 'about' && <About />}
             </div>

@@ -62,6 +62,8 @@ def calculate_past3(row, df):
 
 #Create a new test point to feed into the model and predict
 def create_new_test_fight(df, f1_name, f2_name, num_rounds, fighter_id_map):
+    if f1_name not in fighter_id_map or f2_name not in fighter_id_map:
+        return None
     f1_id = fighter_id_map[f1_name]
     f2_id = fighter_id_map[f2_name]
     f1_avg_stats = average_fighting_stats(df, f1_id)

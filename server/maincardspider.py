@@ -89,19 +89,36 @@ class MaincardspiderSpider(scrapy.Spider):
         img = selector.css("div.hero-profile__image-wrap img").attrib["src"]
         name = selector.css("h1.hero-profile__name::text").get()
         age = selector.css("div.field--name-age::text").get()   
-        if len(selector.css("div.c-bio__text")) > 4:
-            height = selector.css("div.c-bio__text")[-5].css("::text").get()
-            height = f"{int(float(height) // 12)}'{int(float(height) % 12)}"
 
-            weight = selector.css("div.c-bio__text")[-4].css("::text").get()
-            weight = f"{float(weight):.1f}"
+        height = "N/A"
+        weight = "N/A"
+        reach = "N/A"   
 
-            reach = selector.css("div.c-bio__text")[-2].css("::text").get()
-            reach = f'{float(reach):.1f}"'
-        else:
-            height = "N/A"
-            weight = "N/A"
-            reach = "N/A"
+        bio = selector.css("div.c-bio__field")
+        for stat in bio:
+            if stat.css("div.c-bio__label::text").get() == "Height":
+                height = stat.css("div.c-bio__text::text").get()
+                height = f"{int(float(height) // 12)}'{int(float(height) % 12)}"
+            elif stat.css("div.c-bio__label::text").get() == "Weight":
+                weight = stat.css("div.c-bio__text::text").get()
+                weight = f"{float(weight):.1f}"
+            elif stat.css("div.c-bio__label::text").get() == "Reach":
+                reach = stat.css("div.c-bio__text::text").get()
+                reach = f'{float(reach):.1f}"'
+
+        # if len(selector.css("div.c-bio__text")) > 4:
+        #     height = selector.css("div.c-bio__text")[-5].css("::text").get()
+        #     height = f"{int(float(height) // 12)}'{int(float(height) % 12)}"
+
+        #     weight = selector.css("div.c-bio__text")[-4].css("::text").get()
+        #     weight = f"{float(weight):.1f}"
+
+        #     reach = selector.css("div.c-bio__text")[-2].css("::text").get()
+        #     reach = f'{float(reach):.1f}"'
+        # else:
+        #     height = "N/A"
+        #     weight = "N/A"
+        #     reach = "N/A"
 
         record_line = selector.css("p.hero-profile__division-body::text").get()
         record_line = record_line.split(" ")

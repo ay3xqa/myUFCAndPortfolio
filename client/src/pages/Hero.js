@@ -1,21 +1,7 @@
 import FightRow from "../components/FightRow";
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-// import fightData from '../MainCardData.json';
+import React from 'react';
 
-
-export default function Hero(){
-    const [fightData, setFightData] = useState([])
-    useEffect(() => {
-        axios.get('https://ufc-picks-api-5897a84a5ddf.herokuapp.com/ufc_main_card')
-            .then(response => {
-                console.log(response.data)
-                setFightData(response.data)
-            })
-            .catch(error => {
-                console.error('Error fetching the main card data', error);
-            });
-      }, []);
+export default function Hero({fightData}){
 
     const fights = fightData.map((fight, index) => {
         return (

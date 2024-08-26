@@ -15,6 +15,8 @@ import importlib.util
 from apscheduler.schedulers.background import BackgroundScheduler
 from maincardspider import MaincardspiderSpider
 from datetime import datetime
+import logging
+import json
 
 import subprocess
 
@@ -105,6 +107,9 @@ cleaned_data = get_model_dataframe("ufc_fights.csv")
 def predict(input_data):
     # Process input_data (if necessary)
     new_fight = create_new_test_fight(cleaned_data, input_data["f1_name"], input_data["f2_name"], input_data["fight_format"], fighter_map)
+    if new_fight is None or new_fight.empty:
+        print("Debut fighters")
+        return None
     prediction = learn.dls.test_dl(new_fight)
     preds, _ = learn.get_preds(dl=prediction)
     predicted_duration = preds.numpy().flatten()[0]
@@ -112,11 +117,37 @@ def predict(input_data):
     print(f"{x} Predicted Fight Duration: {predicted_duration} seconds")
     return float(predicted_duration)
 
-@app.route('/predict', methods=['GET', "POST"])
+# @app.route('/predict', methods=['GET', "POST"])
+# def get_prediction():
+#     data = request.get_json()
+#     prediction = predict(data)
+#     return jsonify({'predicted_duration': prediction})
+@app.route('/predict', methods=['GET', 'POST'])
 def get_prediction():
     data = request.get_json()
-    prediction = predict(data)
-    return jsonify({'predicted_duration': prediction})
+    
+    try:
+        prediction = predict(data)  # Your existing prediction function
+        
+        if prediction is None or prediction == '':
+            # Prediction couldn't be made, possibly due to debut fighters
+            return jsonify({
+                'predicted_duration': None,
+                'status': 'debut_fighter'
+            }), 200
+        else:
+            # Prediction successful
+            return jsonify({
+                'predicted_duration': prediction,
+                'status': 'success'
+            }), 200
+    except Exception as e:
+        # Handle unexpected errors
+        return jsonify({
+            'predicted_duration': None,
+            'status': 'error',
+            'message': str(e)
+        }), 500
 
 @app.route('/test', methods=['GET'])
 def test_endpoint():
@@ -211,12 +242,29 @@ def run_scrapy_spider():
 def periodic_file_check():
     setup_files()
 
+def check_and_update_data_file():
+    # Check if data.json exists and is valid
+    data_file = 'ufc_main_card.json'
+    if os.path.exists(data_file):
+        with open(data_file, 'r') as file:
+            try:
+                data = json.load(file)
+                if data:  # If the JSON is not empty
+                    logging.info("Using existing data.json")
+                    return
+            except json.JSONDecodeError:
+                logging.warning("ufc_main_card.json is corrupt or empty, scraping new data")
+
+    # If the file doesn't exist or is empty/corrupt, run the spider
+    logging.info("ufc_main_card.json is missing or invalid, running Scrapy spider")
+    run_scrapy_spider()
+
 scheduler = BackgroundScheduler()
 scheduler.add_job(periodic_file_check, 'interval', hours=24)  # Check every 24 hours
 scheduler.add_job(run_scrapy_spider, 'cron', day_of_week='wed', hour=2, minute=0)
 scheduler.start()
 
-run_scrapy_spider()
+check_and_update_data_file()
 
 if __name__ == '__main__':
     # For local development
